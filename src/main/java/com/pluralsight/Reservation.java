@@ -1,9 +1,11 @@
 package com.pluralsight;
 
 public class Reservation {
+
     private String roomType;
     private int numberOfNights;
     private boolean weekend;
+    private double reservationTotal;
 
     public Reservation(String roomType) {
         this.roomType = roomType;
@@ -11,6 +13,10 @@ public class Reservation {
 
     public String getRoomType() {
         return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public double getPrice() {
@@ -41,15 +47,22 @@ public class Reservation {
     public double isWeekend() {
         String weekday = "";
         weekend = false;
-        double weekendPrice= 0;
+        double weekendPrice = 0;
 
-        switch (weekday){
-            case "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" -> {weekend = false;}
-            case "Saturday", "Sunday" -> {weekend = true;}
+        switch (weekday) {
+            case "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" -> {
+                weekend = false;
+            }
+            case "Saturday", "Sunday" -> {
+                weekend = true;
+            }
+            default -> {
+                System.out.println("Invalid weekday.");
+            }
         }
 
-        if (weekend == true){
-            weekendPrice = getPrice() - (getPrice() * .1);
+        if (weekend == true) {
+            weekendPrice = (getPrice() * .1);
         }
 
         return weekendPrice;
@@ -59,4 +72,8 @@ public class Reservation {
         this.weekend = weekend;
     }
 
+    public double getReservationTotal() {
+        reservationTotal = getPrice() + isWeekend();
+        return reservationTotal;
+    }
 }
